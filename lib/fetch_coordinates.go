@@ -9,18 +9,36 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"trip-planer/model"
 	"trip-planer/views"
 )
 
 func FetchGeocodes(source, destination string) ([]views.LocationDetails, error) {
 	GeoCoordinates := []views.LocationDetails{}
-	sourceCoordinates, err := getCoordinates(source)
-	destinationCoordinates, err := getCoordinates(destination)
+	sourceCoordinates, err := fetchCoordinates(source)
+	destinationCoordinates, err := fetchCoordinates(destination)
 	GeoCoordinates = append(GeoCoordinates, sourceCoordinates, destinationCoordinates)
 	if err != nil {
 		return nil, err
 	}
 	return GeoCoordinates, nil
+}
+
+func fetchCoordinates(location string) (views.LocationDetails, error) {
+	geoLocation, err := model.ReadLocation(location)
+	if geoLocation.Place == "" || err != nil {
+		// fmt.Printf("location which is not inside db is: %s\n", location)
+		coordinates, err := getCoordinates(location)
+		if err != nil {
+			log.Fatal(err.Error)
+			return coordinates, err
+		}
+		model.InsertLocation(coordinates) // later to be moved to background routine
+		return coordinates, err
+	} else {
+		// fmt.Printf("location already inside db is: %s\n", geoLocation.Place)
+		return geoLocation, err
+	}
 }
 
 func getCoordinates(location string) (views.LocationDetails, error) {
