@@ -16,7 +16,6 @@ func main() {
 	if initializers.InitiateEnv() == true {
 		router := controller.Register()
 		db := model.Connection()
-		fmt.Printf("Db value:%v", &db)
 		err := db.Ping()
 		if err != nil {
 			fmt.Println("connection is not active")

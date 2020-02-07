@@ -1,7 +1,6 @@
 package model
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -15,7 +14,7 @@ func ReadMilage(car string) float64 {
 	for rows.Next() {
 		rows.Scan(&milage.mpg)
 	}
-	fmt.Printf("miles per gallon:%f\n", milage.mpg)
+	// fmt.Printf("miles per gallon:%f\n", milage.mpg)
 	return milage.mpg
 }
 
