@@ -7,5 +7,6 @@ type TripDetailsRequest struct {
 }
 
 type TripDetailsResponse struct {
-	Fuel string `json:"fuel"`
+	Fuel float64 `json:"fuel"`
+	Unit string  `json:"unit"`
 }

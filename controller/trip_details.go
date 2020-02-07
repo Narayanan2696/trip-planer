@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"trip-planer/lib"
 	"trip-planer/model"
 	"trip-planer/service"
@@ -26,7 +25,7 @@ func PostTripDetails() http.HandlerFunc {
 			milage := model.ReadMilage(data.Car)
 			fuel := service.FuelRequired(distance, milage)
 
-			json.NewEncoder(w).Encode(views.TripDetailsResponse{strconv.FormatFloat(fuel, 'f', 1, 64) + " gallons"})
+			json.NewEncoder(w).Encode(views.TripDetailsResponse{fuel, "gallons"})
 		}
 	}
 }
