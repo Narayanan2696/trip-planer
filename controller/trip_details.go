@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"trip-planer/lib"
 	"trip-planer/model"
+	"trip-planer/service"
 	"trip-planer/views"
 )
 
@@ -17,14 +19,14 @@ func PostTripDetails() http.HandlerFunc {
 			data := views.TripDetailsRequest{}
 			json.NewDecoder(r.Body).Decode(&data)
 			GeoCoordinates, err := lib.FetchGeocodes(data.Source, data.Destination)
-			fmt.Println(GeoCoordinates)
-			milage := model.ReadMilage(data.Car)
 			if err != nil {
 				log.Fatal(err.Error)
 			}
+			distance := service.CalculateDistance(GeoCoordinates)
+			milage := model.ReadMilage(data.Car)
+			fuel := service.FuelRequired(distance, milage)
 
-			fmt.Println(milage)
-			json.NewEncoder(w).Encode(data)
+			json.NewEncoder(w).Encode(views.TripDetailsResponse{strconv.FormatFloat(fuel, 'f', 1, 64) + " gallons"})
 		}
 	}
 }
