@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"trip-planer/controller"
+	controller "trip-planer/controller/api/v1"
 	"trip-planer/initializers"
 	"trip-planer/model"
 
