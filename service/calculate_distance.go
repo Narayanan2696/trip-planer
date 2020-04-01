@@ -1,10 +1,10 @@
 package service
 
 import (
-	"errors"
 	"log"
 	"math"
 	"strings"
+	"trip-planer/lib/errors"
 	"trip-planer/views"
 )
 
@@ -58,7 +58,7 @@ func getEarthRadius(unit string) (float64, error) {
 		radius = radiusKm
 		err = nil
 	} else {
-		err = errors.New(units + " is not a valid unit")
+		err = errors.New(errors.CustomError{404, "Not Found", units + " is not a valid unit"})
 	}
 	return radius, err
 }
