@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"net/http"
 	"trip-planer/lib"
 	"trip-planer/model"
@@ -21,11 +22,11 @@ func PostTripDetails() http.HandlerFunc {
 			if err != nil {
 				log.Fatal(err.Error)
 			}
-			distance := service.CalculateDistance(GeoCoordinates)
+			distance := service.CalculateDistance(GeoCoordinates, data.Unit)
 			milage := model.ReadMilage(data.Car)
-			fuel := service.FuelRequired(distance, milage)
+			fuel := service.FuelRequired(data.Unit, distance, milage)
 
-			json.NewEncoder(w).Encode(views.TripDetailsResponse{fuel, "gallons"})
+			json.NewEncoder(w).Encode(views.TripDetailsResponse{math.Round(distance), data.Unit, fuel})
 		}
 	}
 }
