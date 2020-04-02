@@ -23,7 +23,7 @@ func PostTripDetails() http.HandlerFunc {
 				log.Fatal(err.Error)
 			}
 			distance := service.CalculateDistance(GeoCoordinates, data.Unit)
-			milage := model.ReadMilage(data.Car)
+			milage := model.ReadMilage(data.Car, data.FuelType)
 			fuel := service.FuelRequired(data.Unit, distance, milage)
 
 			json.NewEncoder(w).Encode(views.TripDetailsResponse{math.Round(distance), data.Unit, fuel})
