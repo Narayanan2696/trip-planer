@@ -20,9 +20,3 @@ func (e *errorString) Error() string {
 	}
 	return string(customMessage)
 }
-
-type CustomError struct {
-	Code    int64
-	Status  string
-	Message string
-}

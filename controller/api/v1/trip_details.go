@@ -7,6 +7,7 @@ import (
 	"math"
 	"net/http"
 	"trip-planer/lib"
+	"trip-planer/lib/render"
 	"trip-planer/model"
 	"trip-planer/service"
 	"trip-planer/views"
@@ -20,13 +21,13 @@ func PostTripDetails() http.HandlerFunc {
 			json.NewDecoder(r.Body).Decode(&data)
 			GeoCoordinates, err := lib.FetchGeocodes(data.Source, data.Destination)
 			if err != nil {
-				log.Fatal(err.Error)
+				log.Println(err.Error)
 			}
-			distance := service.CalculateDistance(GeoCoordinates, data.Unit)
-			milage := model.ReadMilage(data.Car)
+			distance, err := service.CalculateDistance(GeoCoordinates, data.Unit)
+			milage := model.ReadMilage(data.Car, data.FuelType)
 			fuel := service.FuelRequired(data.Unit, distance, milage)
 
-			json.NewEncoder(w).Encode(views.TripDetailsResponse{math.Round(distance), data.Unit, fuel})
+			render.JSON(w, err, views.TripDetailsResponse{math.Round(distance), data.Unit, fuel})
 		}
 	}
 }
