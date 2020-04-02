@@ -11,7 +11,7 @@ import (
 const pi = 3.14159265      // pi = 22 / 7
 const radiusMiles = 3963.0 // radius of earth in miles
 const radiusKm = 6371.0    // radius of earth in KM
-func CalculateDistance(geocodes []views.LocationDetails, unit string) float64 {
+func CalculateDistance(geocodes []views.LocationDetails, unit string) (float64, error) {
 	sourceLat := getRadians(geocodes[0].Latitude)
 	sourceLng := getRadians(geocodes[0].Longitude)
 	destinationLat := getRadians(geocodes[1].Latitude)
@@ -19,8 +19,7 @@ func CalculateDistance(geocodes []views.LocationDetails, unit string) float64 {
 
 	radius, err := getEarthRadius(unit)
 	if err != nil {
-		log.Fatal(err.Error())
-		panic(err)
+		log.Println(err.Error())
 	}
 	/**
 		haversine formula
@@ -32,7 +31,7 @@ func CalculateDistance(geocodes []views.LocationDetails, unit string) float64 {
 	value := (math.Pow(math.Sin(deltaLat/2), 2) + math.Cos(sourceLat)*math.Cos(destinationLat)*(math.Pow(math.Sin(deltaLng/2), 2)))
 	sqrtValue := 2 * math.Asin(math.Sqrt(value))
 
-	return radius * sqrtValue
+	return radius * sqrtValue, err
 }
 
 func getRadians(coordinate float64) float64 {
@@ -58,7 +57,7 @@ func getEarthRadius(unit string) (float64, error) {
 		radius = radiusKm
 		err = nil
 	} else {
-		err = errors.New(errors.CustomError{404, "Not Found", units + " is not a valid unit"})
+		err = errors.New(errors.CustomError{404, "Not Found", units + " is not a valid unit of distance"})
 	}
 	return radius, err
 }
