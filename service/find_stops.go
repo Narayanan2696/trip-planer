@@ -13,6 +13,9 @@ import (
 
 var UNIT = []string{"miles", "kilometers"}
 
+/**
+	* To clean and optimize logic and api calls v2.0-beta.1
+**/
 func FindPathStops(paths external_apis.TravelPath, unit, source, destination string) ([]views.Places, error) {
 	distanceIntervalEnv := os.Getenv("DISTANCE_INTERVAL_METER")
 	distanceInterval, _ := strconv.ParseInt(distanceIntervalEnv, 10, 64)
