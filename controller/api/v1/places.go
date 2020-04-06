@@ -23,7 +23,8 @@ func GetPlaces() http.HandlerFunc {
 			data := views.TripDetailsRequest{}
 			json.NewDecoder(r.Body).Decode(&data)
 			var travelPath external_apis.TravelPath
-			cachedData, found := cacheMemory.Get(data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType)
+			cachedData, found := cacheMemory.Get(data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType + data.Unit)
+			var GeoCoordinates = make([]views.LocationDetails, 0, 2)
 			if found {
 				chachedDetails = cachedData.(caching.TravelDetails) // type assertion
 				locationDetails := getLocationDetails(data, chachedDetails)
@@ -32,11 +33,13 @@ func GetPlaces() http.HandlerFunc {
 				places, err := service.FindPathStops(travelPath, data.Unit, data.Source, data.Destination)
 				render.JSON(w, err, places)
 			} else {
-				GeoCoordinates, err := lib.FetchGeocodes(data.Source, data.Destination)
+				sourceGeo, err := lib.FetchGeocodes(data.Source)
+				destinationGeo, err := lib.FetchGeocodes(data.Destination)
+				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{sourceGeo.Place, sourceGeo.Latitude, sourceGeo.Longitude})
+				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{destinationGeo.Place, destinationGeo.Latitude, destinationGeo.Longitude})
 				if err != nil {
 					log.Println(err.Error)
 				}
-				fmt.Println("places reached")
 				// milage := model.ReadMilage(data.Car, data.FuelType)
 				travelPath = lib.FetchPlaces(GeoCoordinates[0], GeoCoordinates[1])
 				places, err := service.FindPathStops(travelPath, data.Unit, data.Source, data.Destination)

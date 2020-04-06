@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"math"
 	"strings"
 	"trip-planer/views"
@@ -29,6 +30,7 @@ func distanceUnitMilage(distanceUnit string, milage float64) float64 {
 	if unit == "kilometers" {
 		return 1.61 * milage
 	} else {
+		fmt.Println("new milage is in miles at milage:", milage)
 		return milage
 	}
 }
@@ -38,6 +40,7 @@ func calculateFuelRequired(milage float64, thresholdDistance float64) (float64, 
 		* to clean it in later versions
 	**/
 	gallons := math.Ceil(thresholdDistance / milage)
+	fmt.Println("Thresh hold distance and milage", thresholdDistance, milage)
 	liters := math.Ceil((thresholdDistance * 3.79) / milage)
 	return gallons, liters // fuel required in gallons
 }

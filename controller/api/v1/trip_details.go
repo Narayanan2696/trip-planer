@@ -25,7 +25,8 @@ func PostTripDetails() http.HandlerFunc {
 			fmt.Println("Encountered POST method of PostTripDetails")
 			data := views.TripDetailsRequest{}
 			json.NewDecoder(r.Body).Decode(&data)
-			cachedData, found := cacheMemory.Get(data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType)
+			cachedData, found := cacheMemory.Get(data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType + "_" + data.Unit)
+			var GeoCoordinates = make([]views.LocationDetails, 0, 2)
 			if found {
 				chachedDetails = cachedData.(caching.TravelDetails) // type assertion
 				/**
@@ -37,16 +38,18 @@ func PostTripDetails() http.HandlerFunc {
 
 				render.JSON(w, nil, views.TripDetailsResponse{chachedDetails.Distance, data.Unit, fuels})
 			} else {
-				GeoCoordinates, err := lib.FetchGeocodes(data.Source, data.Destination)
+				sourceGeo, err := lib.FetchGeocodes(data.Source)
+				destinationGeo, err := lib.FetchGeocodes(data.Destination)
+				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{sourceGeo.Place, sourceGeo.Latitude, sourceGeo.Longitude})
+				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{destinationGeo.Place, destinationGeo.Latitude, destinationGeo.Longitude})
 				if err != nil {
 					log.Println(err.Error)
 				}
 				distance, err := service.CalculateDistance(GeoCoordinates, data.Unit)
 				milage := model.ReadMilage(data.Car, data.FuelType)
 				fuel := service.FuelRequired(data.Unit, distance, milage)
-
 				// configure cache
-				key := data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType
+				key := data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType + "_" + data.Unit
 				sourceCoordinate := caching.Coordinate{GeoCoordinates[0].Latitude, GeoCoordinates[0].Longitude}
 				destinationCoordinate := caching.Coordinate{GeoCoordinates[1].Latitude, GeoCoordinates[1].Longitude}
 				chachedDetails = caching.TravelDetails{sourceCoordinate, destinationCoordinate, math.Round(distance), fuel[0].Quantity, fuel[1].Quantity}
