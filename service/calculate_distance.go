@@ -11,6 +11,7 @@ import (
 const pi = 3.14159265      // pi = 22 / 7
 const radiusMiles = 3963.0 // radius of earth in miles
 const radiusKm = 6371.0    // radius of earth in KM
+
 func CalculateDistance(geocodes []views.LocationDetails, unit string) (float64, error) {
 	sourceLat := getRadians(geocodes[0].Latitude)
 	sourceLng := getRadians(geocodes[0].Longitude)
