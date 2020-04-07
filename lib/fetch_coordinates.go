@@ -26,7 +26,6 @@ func FetchGeocodes(place string) (views.LocationDetails, error) {
 	if location[0].Lat == "" || location[0].Lon == "" {
 		return placeDetail, errors.New(errors.CustomError{404, "NOT_FOUND", "Latitude:" + location[0].Lat + " or Longitude: " + location[0].Lon + " is empty"})
 	} else {
-		fmt.Println("reached to parsing")
 		latitude, _ := strconv.ParseFloat(location[0].Lat, 64)
 		longitude, _ := strconv.ParseFloat(location[0].Lon, 64)
 		return views.LocationDetails{place, latitude, longitude}, nil
