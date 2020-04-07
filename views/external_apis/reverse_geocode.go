@@ -1,15 +1,15 @@
 package external_apis
 
 type ReverseGeocode struct {
-	PlaceId     string  `json:"place_id"`
-	Licence     string  `json:"licence"`
-	OsmType     string  `json:"osm_type"`
-	OsmID       string  `json:"osm_id"`
-	Lat         string  `json:"lat"`
-	Lon         string  `json:"lon"`
-	DisplayName string  `json:"display_name"`
-	Address     address `json:"address"`
-	BoundingBox string  `json:"boundingbox"`
+	PlaceId     string   `json:"place_id"`
+	Licence     string   `json:"licence"`
+	OsmType     string   `json:"osm_type"`
+	OsmID       string   `json:"osm_id"`
+	Lat         string   `json:"lat"`
+	Lon         string   `json:"lon"`
+	DisplayName string   `json:"display_name"`
+	Address     address  `json:"address"`
+	BoundingBox []string `json:"boundingbox"`
 }
 
 type address struct {
