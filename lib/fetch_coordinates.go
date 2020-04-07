@@ -16,7 +16,6 @@ func FetchGeocodes(place string) (views.LocationDetails, error) {
 	key := os.Getenv("LOCATIONIQ_API_KEY")
 	endpoint := os.Getenv("GEOCODING_ENDPOINT")
 	url := endpoint + "?key=" + key + "&q=" + place + "&format=json"
-	fmt.Println(url)
 	req, _ := http.Get(url)
 	body, _ := ioutil.ReadAll(req.Body)
 	var location []external_apis.Geocode
