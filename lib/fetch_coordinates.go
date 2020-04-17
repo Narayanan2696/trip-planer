@@ -2,7 +2,6 @@ package lib
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -20,7 +19,6 @@ func FetchGeocodes(place string) (views.LocationDetails, error) {
 	body, _ := ioutil.ReadAll(req.Body)
 	var location []external_apis.Geocode
 	json.Unmarshal(body, &location)
-	fmt.Println(location[0])
 	var placeDetail views.LocationDetails
 	if location[0].Lat == "" || location[0].Lon == "" {
 		return placeDetail, errors.New(errors.CustomError{404, "NOT_FOUND", "Latitude:" + location[0].Lat + " or Longitude: " + location[0].Lon + " is empty"})
