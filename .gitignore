@@ -19,3 +19,6 @@ trip-planer
 
 # environment variables
 .env
+
+# strore
+.DS_Store
