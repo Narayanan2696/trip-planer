@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	controller "trip-planer/controller/api/v1"
 	"trip-planer/initializers"
 	"trip-planer/model"
@@ -22,7 +23,8 @@ func main() {
 			log.Fatal(err.Error)
 		}
 		defer db.Close() // defer is used to execute the statement end of the scope here last line of main()
-		http.ListenAndServe("localhost:3000", router)
+		host := os.Getenv("DOMAIN_HOST")
+		http.ListenAndServe(host, router)
 	} else {
 		log.Fatal("error in loading env")
 	}
