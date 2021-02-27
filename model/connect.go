@@ -9,10 +9,11 @@ import (
 
 var connect *sql.DB
 
+// Connection to mysql
 func Connection() *sql.DB {
 	dbType := os.Getenv("DB_PROVIDER")
-	dbUrl := os.Getenv("DATABASE_URL")
-	db, err := sql.Open(dbType, dbUrl)
+	dbURL := os.Getenv("DATABASE_URL")
+	db, err := sql.Open(dbType, dbURL)
 	if err != nil {
 		fmt.Println("error panic!!!")
 		log.Fatal(err.Error)
