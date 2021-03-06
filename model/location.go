@@ -19,6 +19,7 @@ func ReadLocation(place string) (views.LocationDetails, error) {
 	return location, err
 }
 
+// InsertLocation create a location
 func InsertLocation(location views.LocationDetails) {
 	insertQ, err := connect.Query("INSERT INTO LOCATION(PLACE, LATITUDE, LONGITUDE) VALUES(?,?,?)", location.Place, location.Latitude, location.Longitude)
 	defer insertQ.Close()
