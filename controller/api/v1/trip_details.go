@@ -19,6 +19,7 @@ import (
 var cacheMemory = caching.Cache()
 var chachedDetails caching.TravelDetails
 
+// PostTripDetails Create trip details
 func PostTripDetails() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodPost {
