@@ -15,6 +15,7 @@ import (
 func main() {
 	fmt.Println("=======Trip Planer=======")
 	if initializers.InitiateEnv() == true {
+		fmt.Println("Did not reach returned false")
 		router := controller.Register()
 		db := model.Connection()
 		err := db.Ping()
