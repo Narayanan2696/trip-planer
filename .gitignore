@@ -22,3 +22,6 @@ trip-planer
 
 # strore
 .DS_Store
+
+# bin
+bin/
