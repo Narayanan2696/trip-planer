@@ -10,6 +10,6 @@ func Register() *mux.Router {
 	router.HandleFunc("/api/v1/places", GetPlaces())
 
 	// admin
-	router.HandleFunc("/api/v1/", Healthcheck())
+	router.HandleFunc("/api/v1", Healthcheck())
 	return router
 }

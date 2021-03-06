@@ -23,8 +23,10 @@ func main() {
 			log.Fatal(err)
 		}
 		defer db.Close() // defer is used to execute the statement end of the scope here last line of main()
-		host := os.Getenv("DOMAIN_HOST")
-		http.ListenAndServe(host, router)
+		fmt.Println("db connected========")
+		// host := os.Getenv("DOMAIN_HOST")
+		// http.ListenAndServe(host, router)
+		http.ListenAndServe(":"+os.Getenv("PORT"), router)
 	} else {
 		log.Fatal("error in loading env")
 	}
