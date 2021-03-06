@@ -8,7 +8,7 @@ func ReadMilage(car, fuelType string) float64 {
 	rows, err := connect.Query("SELECT MPG FROM FUELMILAGE WHERE TYPE = ? AND MILAGE_ID IN (SELECT ID FROM MILAGE WHERE CAR_NAME = ?)", fuelType, car)
 	defer rows.Close()
 	if err != nil {
-		log.Fatal(err.Error)
+		log.Fatal(err)
 	}
 	milage := milage{}
 	for rows.Next() {

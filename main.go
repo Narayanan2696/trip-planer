@@ -20,7 +20,7 @@ func main() {
 		err := db.Ping()
 		if err != nil {
 			fmt.Println("connection is not active")
-			log.Fatal(err.Error)
+			log.Fatal(err)
 		}
 		defer db.Close() // defer is used to execute the statement end of the scope here last line of main()
 		host := os.Getenv("DOMAIN_HOST")

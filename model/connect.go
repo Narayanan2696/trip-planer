@@ -16,7 +16,7 @@ func Connection() *sql.DB {
 	db, err := sql.Open(dbType, dbURL)
 	if err != nil {
 		fmt.Println("error panic!!!")
-		log.Fatal(err.Error)
+		log.Fatal(err)
 		return nil
 	}
 	connect = db

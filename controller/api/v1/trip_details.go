@@ -43,7 +43,7 @@ func PostTripDetails() http.HandlerFunc {
 				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{sourceGeo.Place, sourceGeo.Latitude, sourceGeo.Longitude})
 				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{destinationGeo.Place, destinationGeo.Latitude, destinationGeo.Longitude})
 				if err != nil {
-					log.Println(err.Error)
+					log.Println(err)
 				}
 				distance, err := service.CalculateDistance(GeoCoordinates, data.Unit)
 				milage := model.ReadMilage(data.Car, data.FuelType)

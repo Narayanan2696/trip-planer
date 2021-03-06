@@ -10,7 +10,7 @@ func ReadLocation(place string) (views.LocationDetails, error) {
 	defer rows.Close()
 	location := views.LocationDetails{}
 	if err != nil {
-		log.Fatal(err.Error)
+		log.Fatal(err)
 		return location, err
 	}
 	for rows.Next() {
@@ -23,7 +23,7 @@ func InsertLocation(location views.LocationDetails) {
 	insertQ, err := connect.Query("INSERT INTO LOCATION(PLACE, LATITUDE, LONGITUDE) VALUES(?,?,?)", location.Place, location.Latitude, location.Longitude)
 	defer insertQ.Close()
 	if err != nil {
-		log.Fatal(err.Error)
+		log.Fatal(err)
 		log.Fatal("location got through API call was not successfully loaded in DB!!")
 	}
 }

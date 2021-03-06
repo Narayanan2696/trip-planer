@@ -38,7 +38,7 @@ func GetPlaces() http.HandlerFunc {
 				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{sourceGeo.Place, sourceGeo.Latitude, sourceGeo.Longitude})
 				GeoCoordinates = append(GeoCoordinates, views.LocationDetails{destinationGeo.Place, destinationGeo.Latitude, destinationGeo.Longitude})
 				if err != nil {
-					log.Println(err.Error)
+					log.Println(err)
 				}
 				// milage := model.ReadMilage(data.Car, data.FuelType)
 				travelPath = lib.FetchPlaces(GeoCoordinates[0], GeoCoordinates[1])
