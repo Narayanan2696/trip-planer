@@ -8,5 +8,8 @@ func Register() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/api/v1/trip_details", PostTripDetails())
 	router.HandleFunc("/api/v1/places", GetPlaces())
+
+	// admin
+	router.HandleFunc("/api/v1/", Healthcheck())
 	return router
 }

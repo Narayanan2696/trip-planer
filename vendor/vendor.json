@@ -26,6 +26,24 @@
 			"revisionTime": "2020-03-01T20:46:15Z"
 		},
 		{
+			"checksumSHA1": "AstbS61suF17RuSpc+HzDzIJrn8=",
+			"path": "github.com/lib/pq",
+			"revision": "072e83d238c297c71cab11154695af301010031e",
+			"revisionTime": "2021-02-12T17:59:49Z"
+		},
+		{
+			"checksumSHA1": "AU3fA8Sm33Vj9PBoRPSeYfxLRuE=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "072e83d238c297c71cab11154695af301010031e",
+			"revisionTime": "2021-02-12T17:59:49Z"
+		},
+		{
+			"checksumSHA1": "n0MMCrKKsQuuhv7vLsrtRUGJVA8=",
+			"path": "github.com/lib/pq/scram",
+			"revision": "072e83d238c297c71cab11154695af301010031e",
+			"revisionTime": "2021-02-12T17:59:49Z"
+		},
+		{
 			"checksumSHA1": "uf29R4zUiNF3mSoKNaKyntRJ/VQ=",
 			"path": "github.com/patrickmn/go-cache",
 			"revision": "46f407853014144407b6c2ec7ccc76bf67958d93",
