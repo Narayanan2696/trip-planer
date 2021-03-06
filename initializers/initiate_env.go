@@ -8,14 +8,14 @@ import (
 )
 
 func InitiateEnv() bool {
-	// fmt.Println("ENV: ", os.Environ())
 	fmt.Println("app: ", os.Getenv("APP_ENV"))
-	// if os.Getenv("APP_ENV") == "local" {
+	fmt.Println("DB_PROVIDER: ", os.Getenv("DB_PROVIDER"))
 	err := godotenv.Load()
 	if err != nil {
-		return false
+		path, _ := os.Getwd()
+		if _, err := os.Stat(path + "../.env"); err == nil {
+			return false
+		}
 	}
-	// }
-
 	return true
 }
