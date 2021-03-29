@@ -20,6 +20,12 @@
 			"revisionTime": "2020-05-17T04:02:54Z"
 		},
 		{
+			"checksumSHA1": "L+CMHg6VJ7PjH2g6vJKIsmivftI=",
+			"path": "github.com/gorilla/schema",
+			"revision": "c1a93f601268c10220a683cd59d08e2fcc55ad3e",
+			"revisionTime": "2020-09-13T23:49:30Z"
+		},
+		{
 			"checksumSHA1": "j7Ia6Oa+YC3CPhr9tEudFVJcqkw=",
 			"path": "github.com/joho/godotenv",
 			"revision": "d6ee6871f21dd95e76563a90f522ce9fe75443f8",
