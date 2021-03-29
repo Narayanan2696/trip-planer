@@ -8,6 +8,14 @@ type TripDetailsRequest struct {
 	Unit        string `json:"unit"`
 }
 
+type TripDetailsQueryRequest struct {
+	Source      string `schema:"from"`
+	Destination string `schema:"to"`
+	Car         string `schema:"car_name"`
+	FuelType    string `schema:"fuel_type"`
+	Unit        string `schema:"unit"`
+}
+
 type TripDetailsResponse struct {
 	Distance float64              `json:"distance"`
 	Unit     string               `json:"unit"`

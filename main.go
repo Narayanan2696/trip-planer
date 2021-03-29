@@ -23,6 +23,7 @@ func main() {
 			log.Fatal(err)
 		}
 		defer db.Close() // defer is used to execute the statement end of the scope here last line of main()
+		model.PrepareSchemas()
 		fmt.Println(os.Getenv("DATABASE_URL"))
 		fmt.Println("=======connected========")
 		http.ListenAndServe(":"+os.Getenv("PORT"), router)

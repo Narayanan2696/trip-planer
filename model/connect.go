@@ -11,7 +11,7 @@ import (
 
 var connect *sql.DB
 
-// Connection to mysql
+// Connection to database
 func Connection() *sql.DB {
 	dbType := os.Getenv("DB_PROVIDER")
 	dbURL := os.Getenv("DATABASE_URL")

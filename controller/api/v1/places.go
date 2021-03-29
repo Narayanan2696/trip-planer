@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,6 +11,7 @@ import (
 	"trip-planer/service"
 	"trip-planer/views"
 	"trip-planer/views/external_apis"
+	"github.com/gorilla/schema"
 )
 
 /**
@@ -20,8 +21,9 @@ func GetPlaces() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			fmt.Println("Encountered GET method of Places")
-			data := views.TripDetailsRequest{}
-			json.NewDecoder(r.Body).Decode(&data)
+			dataSchema := views.TripDetailsQueryRequest{}
+			schema.NewDecoder().Decode(&dataSchema, r.URL.Query())
+			data := views.TripDetailsRequest{dataSchema.Source, dataSchema.Destination, dataSchema.Car, dataSchema.FuelType, dataSchema.Unit}
 			var travelPath external_apis.TravelPath
 			cachedData, found := cacheMemory.Get(data.Source + "_" + data.Destination + "_" + data.Car + "_" + data.FuelType + data.Unit)
 			var GeoCoordinates = make([]views.LocationDetails, 0, 2)
